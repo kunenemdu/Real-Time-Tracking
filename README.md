@@ -1,4 +1,4 @@
-# 🚌 Live Bus Tracker – Tallaght
+# 🚌 Real-Time Bus Tracker
 
 A real-time iOS bus tracking app built with SwiftUI and MapKit, centered around Springfield, Tallaght.
 
