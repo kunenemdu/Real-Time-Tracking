@@ -73,18 +73,6 @@ The project follows MVVM:
 4. Bus coordinates are extracted
 5. Map annotations update automatically via @Published
 
----
-
-## 🎨 App Icon
-
-Custom icon:
-- Red location pin
-- Moving bus
-- Blue background
-- 1024x1024 PNG
-- No transparency (iOS compliant)
-
-iOS automatically applies corner radius masking.
 
 ---
 
@@ -101,6 +89,7 @@ Approximate region around South Dublin.
 ## 🚀 Future Improvements
 
 - Route filtering
+- Individual Vehicle identification
 - Bus tap → route info popup
 - ETA predictions (TripUpdates integration)
 - Stop-level tracking
