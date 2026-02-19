@@ -12,8 +12,6 @@ import MapKit
 class BusViewModel: ObservableObject {
     
     @Published var buses: [Bus] = []
-    @Published var allStops: [BusStop] = []
-    @Published var nearestStops: [BusStop] = []
     private var timer: Timer?
     
     private let service = GTFSRService()
@@ -34,39 +32,6 @@ class BusViewModel: ObservableObject {
     }
     
     init() {
-        self.allStops = loadBusStops()
-        print(allStops.count)
-    }
-    
-    // load all stops from json
-    func loadBusStops() -> [BusStop] {
-        // 1. Find the file in the Xcode project
-        guard let url = Bundle.main.url(forResource: "stops", withExtension: "json") else {
-            print("JSON file not found.")
-            return []
-        }
-        
-        do {
-            // 2. Load the data from the file
-            let data = try Data(contentsOf: url)
-            
-            // 3. Decode the JSON into an array of BusStop
-            let decoder = JSONDecoder()
-            do {
-                let stops = try decoder.decode([BusStop].self, from: data)
-                print("Successfully loaded \(stops.count) stops.")
-                return stops
-            } catch DecodingError.typeMismatch(let type, let context) {
-                print("Type Mismatch: Expected \(type) at \(context.codingPath)")
-            } catch {
-                print("General Error: \(error)")
-            }
-            return []
-            
-        } catch {
-            print("Error decoding JSON: \(error)")
-            return []
-        }
     }
 
     //closest stops to user

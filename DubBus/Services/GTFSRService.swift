@@ -9,63 +9,61 @@ import Foundation
 import CoreLocation
 
 class GTFSRService {
-<<<<<<< HEAD
-=======
     
     private let apiKey = ""
     
     func fetchVehiclePositions(completion: @escaping ([Bus]) -> Void) {
->>>>>>> 57017932849cf5899d5d70fc7acde9c10b3b08b3
         
-    func fetchVehiclePositions(completion: @escaping ([Bus]) -> Void) {
-        let apiKey = ""
-
-        guard let url = URL(string: "https://api.nationaltransport.ie/gtfsr/v2/Vehicles?format=json") else {
-            completion([])
-            return
-        }
-        
-        var request = URLRequest(url: url)
-        request.addValue(apiKey, forHTTPHeaderField: "x-api-key")
-        
-        URLSession.shared.dataTask(with: request) { data, response, error in
+        func fetchVehiclePositions(completion: @escaping ([Bus]) -> Void) {
+            let apiKey = ""
             
-            guard let data = data else {
+            guard let url = URL(string: "https://api.nationaltransport.ie/gtfsr/v2/Vehicles?format=json") else {
                 completion([])
                 return
             }
             
-            do {
-                let decoded = try JSONDecoder().decode(GTFSRResponse.self, from: data)
+            var request = URLRequest(url: url)
+            request.addValue(apiKey, forHTTPHeaderField: "x-api-key")
+            
+            URLSession.shared.dataTask(with: request) { data, response, error in
                 
-                print("Entities count:", decoded.entity.count)
-                
-                let buses = decoded.entity.compactMap { entity -> Bus? in
-                    
-                    guard let vehicle = entity.vehicle,
-                          let position = vehicle.position,
-                          let lat = position.latitude,
-                          let lon = position.longitude else {
-                        return nil
-                    }
-                    
-                    return Bus(
-                        id: vehicle.vehicle?.id ?? entity.id,
-                        routeNumber: vehicle.trip?.routeId ?? "N/A",
-                        coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lon)
-                    )
+                guard let data = data else {
+                    completion([])
+                    return
                 }
                 
-                print("Parsed buses:", buses.count)
-
+                do {
+                    let decoded = try JSONDecoder().decode(GTFSRResponse.self, from: data)
+                    
+                    print("Entities count:", decoded.entity.count)
+                    
+                    let buses = decoded.entity.compactMap { entity -> Bus? in
+                        
+                        guard let vehicle = entity.vehicle,
+                              let position = vehicle.position,
+                              let lat = position.latitude,
+                              let lon = position.longitude else {
+                            return nil
+                        }
+                        
+                        return Bus(
+                            id: vehicle.vehicle?.id ?? entity.id,
+                            routeNumber: vehicle.trip?.routeId ?? "N/A",
+                            coordinate: CLLocationCoordinate2D(latitude: lat, longitude: lon)
+                        )
+                    }
+                    
+                    print("Parsed buses:", buses.count)
+                    
+                    
+                    completion(buses)
+                    
+                } catch {
+                    print("JSON Decode Error:", error)
+                    completion([])
+                }
                 
-                completion(buses)
-                
-            } catch {
-                print("JSON Decode Error:", error)
-                completion([])
-            }
-            
-        }.resume()
+            }.resume()
+        }
     }
 }

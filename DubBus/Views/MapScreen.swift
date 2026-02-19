@@ -6,6 +6,7 @@
 
 import SwiftUI
 import MapKit
+import SwiftData
 
 struct MapScreen: View {
 
@@ -19,13 +20,17 @@ struct MapScreen: View {
     )
     // Center the camera on Tallaght immediately
     @State private var position: MapCameraPosition = .camera(
-        MapCamera(centerCoordinate: CLLocationCoordinate2D(latitude: 53.2875, longitude: -6.3664), distance: 1000))
+        MapCamera(centerCoordinate: CLLocationCoordinate2D(latitude: 53.2875, longitude: -6.3664), distance: 2000))
     
     let tallaghtCross = CLLocation(latitude: 53.2875, longitude: -6.3664)
     
-    @State private var allStops: [BusStop] = []
-    @State private var nearbyStops: [BusStop] = []
-        
+    @Query var allStops: [BusStop]
+    var nearbyStops: [BusStop]{
+        return viewModel.updateVisibleStops(near: tallaghtCross, allLoadedStops: allStops)
+    }
+    @State var sheetPresented: Bool = true
+    
+    
     //main map
     var body: some View {
         
@@ -33,7 +38,7 @@ struct MapScreen: View {
             // 1. Display Bus Stops using Markers (Standard Look)
             
             ForEach(nearbyStops) { stop in
-                Annotation(stop.id, coordinate: stop.coordinate) {
+                Annotation(String(stop.stopCode), coordinate: stop.coordinate) {
                     VStack {
                         Image(systemName: "bus")
                             .padding(8)
@@ -78,16 +83,33 @@ struct MapScreen: View {
         }
         .onAppear {
             viewModel.startLiveUpdates()
-            
-            //load big JSON file
-            self.allStops = viewModel.loadBusStops()
-            
-            //filter the stops
-            self.nearbyStops = viewModel.updateVisibleStops(near: tallaghtCross, allLoadedStops: allStops)
         }
         .mapControls {
             MapUserLocationButton()
         }
-    }
+        
+        //bottom sheet
+        .sheet(isPresented: $sheetPresented) {
+            VStack {
+                Text("Nearby Stops")
+                    .padding()
+                    .font(.headline)
 
+                List(nearbyStops) { stop in
+                    HStack {
+                        Image(systemName: "bus.fill")
+                            .foregroundColor(.green)
+                        VStack(alignment: .leading) {
+                            Text(stop.name)
+                                .font(.body)
+                            Text("Code: \(String(stop.stopCode))")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                }
+            }
+            .presentationDetents([.height(200), .medium, .large])
+        }
+    }
 }
