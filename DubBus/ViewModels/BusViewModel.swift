@@ -12,7 +12,7 @@ import MapKit
 class BusViewModel: ObservableObject {
     
     @Published var buses: [Bus] = []
-    var foundStop: [BusStop] = []
+    var foundStops: [BusStop] = []
     private var timer: Timer?
     
     private let service = GTFSRService()
@@ -48,7 +48,7 @@ class BusViewModel: ObservableObject {
     }
     
     func searchStops (named query: String, from allStops: [BusStop]){
-        self.foundStop = allStops.filter { stop in
+        self.foundStops = allStops.filter { stop in
             stop.name.localizedCaseInsensitiveContains(query) ||
             String(stop.stopCode).contains(query)
         }

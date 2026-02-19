@@ -37,7 +37,6 @@ struct MapScreen: View {
         
         Map (position: $position) {
             // 1. Display Bus Stops using Markers (Standard Look)
-            
             ForEach(nearbyStops) { stop in
                 Annotation(String(stop.stopCode), coordinate: stop.coordinate) {
                     VStack {
@@ -47,14 +46,11 @@ struct MapScreen: View {
                             .clipShape(Circle())
                             .overlay(Circle().stroke(Color.black, lineWidth: 2))
                         
-                        Text("Route 4")
-                            .font(.caption2)
-                            .bold()
                     }
                 }
             }
 
-                        // 2. Display Buses using Annotations (Custom SwiftUI View)
+            // 2. Display Buses using Annotations (Custom SwiftUI View)
             ForEach(viewModel.buses) { bus in
                 Annotation(bus.id, coordinate: bus.coordinate) {
                     VStack {
@@ -64,19 +60,20 @@ struct MapScreen: View {
                             .clipShape(Circle())
                             .overlay(Circle().stroke(Color.black, lineWidth: 2))
                         
-                        Text("Route 4")
-                            .font(.caption2)
-                            .bold()
                     }
                 }
             }
             
         }
-        //search field
         .overlay(alignment: .top) {
             VStack {
-                searchBar
-                Spacer()
+                //search field
+                SearchOverlay (
+                    searchText: $searchInput,
+                    filteredStops: viewModel.foundStops,
+                    onSelect: { stop in
+                        print(stop.name)
+                    })
                 
                 // Button only visible if sheet is NOT showing
                 if !sheetPresented {

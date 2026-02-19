@@ -7,7 +7,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var locationManager: LocationManager = LocationManager.shared
+    
     var body: some View {
-        MapScreen()
+        Group {
+            if locationManager.user == nil {
+                LocationRequestView()
+            }
+            else {
+                MapScreen()
+            }
+        }
     }
 }
