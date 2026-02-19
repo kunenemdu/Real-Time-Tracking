@@ -9,11 +9,10 @@ import Foundation
 import CoreLocation
 
 class GTFSRService {
-    
-    private let apiKey = "7b0bb4bd55db4795866890f524c2170f"
-    
-    func fetchVehiclePositions(completion: @escaping ([Bus]) -> Void) {
         
+    func fetchVehiclePositions(completion: @escaping ([Bus]) -> Void) {
+        let apiKey = ""
+
         guard let url = URL(string: "https://api.nationaltransport.ie/gtfsr/v2/Vehicles?format=json") else {
             completion([])
             return
