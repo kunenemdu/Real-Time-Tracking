@@ -12,6 +12,7 @@ import MapKit
 class BusViewModel: ObservableObject {
     
     @Published var buses: [Bus] = []
+    var foundStop: [BusStop] = []
     private var timer: Timer?
     
     private let service = GTFSRService()
@@ -44,6 +45,13 @@ class BusViewModel: ObservableObject {
         
         // Return only the 10 closest stops to prevent texture lag
         return Array(sorted.prefix(10))
+    }
+    
+    func searchStops (named query: String, from allStops: [BusStop]){
+        self.foundStop = allStops.filter { stop in
+            stop.name.localizedCaseInsensitiveContains(query) ||
+            String(stop.stopCode).contains(query)
+        }
     }
           
 }

@@ -29,6 +29,7 @@ struct MapScreen: View {
         return viewModel.updateVisibleStops(near: tallaghtCross, allLoadedStops: allStops)
     }
     @State var sheetPresented: Bool = true
+    @State var nearbyButtonVisibility: Bool = true
     
     
     //main map
@@ -69,14 +70,25 @@ struct MapScreen: View {
                     }
                 }
             }
+            
         }
         //search field
         .overlay(alignment: .top) {
-            TextField("Search for stop...", text: $searchInput)
-                .padding(12)
-                .background(.white)
-                .padding()
-                .shadow(radius: 15)
+            VStack {
+                searchBar
+                Spacer()
+                
+                // Button only visible if sheet is NOT showing
+                if !sheetPresented {
+                    Button("Nearby Stops") {
+                        sheetPresented = true
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .padding()
+                    .transition(.opacity)
+                }
+                
+            }
         }
         .onSubmit {
             
@@ -102,14 +114,31 @@ struct MapScreen: View {
                         VStack(alignment: .leading) {
                             Text(stop.name)
                                 .font(.body)
-                            Text("Code: \(String(stop.stopCode))")
+                            Text("Code: " + (String(stop.stopCode)))
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                         }
                     }
                 }
             }
-            .presentationDetents([.height(200), .medium, .large])
+            .presentationDetents([.medium, .large])
+            .animation(.default, value: sheetPresented)
         }
+        
+        //tapping map
+        .onTapGesture {
+            
+        }
+    }
+    
+    var searchBar: some View {
+        TextField("Search for stop...", text: $searchInput)
+            .padding(12)
+            .background(.white)
+            .padding()
+            .shadow(radius: 15)
+            .onChange(of: searchInput) { oldQuery, newQuery in
+                viewModel.searchStops(named: newQuery, from: allStops)
+            }
     }
 }
