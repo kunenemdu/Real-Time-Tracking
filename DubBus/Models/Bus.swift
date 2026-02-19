@@ -13,5 +13,3 @@ struct Bus: Identifiable {
     let routeNumber: String
     let coordinate: CLLocationCoordinate2D
 }
-
-

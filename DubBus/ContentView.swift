@@ -5,18 +5,16 @@
 //
 
 import SwiftUI
+import CoreLocation
 
-struct ContentView: View {
-    @ObservedObject var locationManager: LocationManager = LocationManager.shared
-    
+struct ContentView: View {    
     var body: some View {
-        Group {
-            if locationManager.user == nil {
-                LocationRequestView()
-            }
-            else {
-                MapScreen()
-            }
-        }
+        MapScreen()
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
     }
 }

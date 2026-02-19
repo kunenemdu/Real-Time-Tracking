@@ -5,22 +5,14 @@
 //
 
 import SwiftUI
-import MapKit
 import SwiftData
+import MapKit
 
 struct MapScreen: View {
 
     @StateObject private var viewModel = BusViewModel()
+    @StateObject private var mapScreenModel = MapScreenModel()
     @State var searchInput = ""
-
-    //map starting region
-    @State private var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 53.2889, longitude: -6.3778),
-        span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
-    )
-    // Center the camera on Tallaght immediately
-    @State private var position: MapCameraPosition = .camera(
-        MapCamera(centerCoordinate: CLLocationCoordinate2D(latitude: 53.2875, longitude: -6.3664), distance: 2000))
     
     let tallaghtCross = CLLocation(latitude: 53.2875, longitude: -6.3664)
     
@@ -34,8 +26,8 @@ struct MapScreen: View {
     
     //main map
     var body: some View {
-        
-        Map (position: $position) {
+        Map (position: $mapScreenModel.position) {
+            UserAnnotation()
             // 1. Display Bus Stops using Markers (Standard Look)
             ForEach(nearbyStops) { stop in
                 Annotation(String(stop.stopCode), coordinate: stop.coordinate) {
@@ -92,9 +84,7 @@ struct MapScreen: View {
         }
         .onAppear {
             viewModel.startLiveUpdates()
-        }
-        .mapControls {
-            MapUserLocationButton()
+            mapScreenModel.checkLocationEnabled()
         }
         
         //bottom sheet
@@ -122,10 +112,6 @@ struct MapScreen: View {
             .animation(.default, value: sheetPresented)
         }
         
-        //tapping map
-        .onTapGesture {
-            
-        }
     }
     
     var searchBar: some View {
@@ -137,5 +123,11 @@ struct MapScreen: View {
             .onChange(of: searchInput) { oldQuery, newQuery in
                 viewModel.searchStops(named: newQuery, from: allStops)
             }
+    }
+}
+
+struct MapScreen_Previews: PreviewProvider {
+    static var previews: some View {
+        MapScreen()
     }
 }
