@@ -9,6 +9,13 @@ import Foundation
 import CoreLocation
 
 class GTFSRService {
+<<<<<<< HEAD
+=======
+    
+    private let apiKey = ""
+    
+    func fetchVehiclePositions(completion: @escaping ([Bus]) -> Void) {
+>>>>>>> 57017932849cf5899d5d70fc7acde9c10b3b08b3
         
     func fetchVehiclePositions(completion: @escaping ([Bus]) -> Void) {
         let apiKey = ""
