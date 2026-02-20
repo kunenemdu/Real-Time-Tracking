@@ -8,11 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		79482DD02F46A9B400397300 /* stops.json in Resources */ = {isa = PBXBuildFile; fileRef = 79482DCF2F46A9B400397300 /* stops.json */; };
+		79ABA8082F47E47100046087 /* routes.json in Resources */ = {isa = PBXBuildFile; fileRef = 79ABA8062F47E47100046087 /* routes.json */; };
+		79ABA8092F47E47100046087 /* trips.json in Resources */ = {isa = PBXBuildFile; fileRef = 79ABA8072F47E47100046087 /* trips.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		7927935B2F4528BD00477826 /* DubBus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DubBus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79482DCF2F46A9B400397300 /* stops.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = stops.json; sourceTree = "<group>"; };
+		79ABA8062F47E47100046087 /* routes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = routes.json; sourceTree = "<group>"; };
+		79ABA8072F47E47100046087 /* trips.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = trips.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -61,6 +65,8 @@
 		792793522F4528BD00477826 = {
 			isa = PBXGroup;
 			children = (
+				79ABA8062F47E47100046087 /* routes.json */,
+				79ABA8072F47E47100046087 /* trips.json */,
 				79482DCF2F46A9B400397300 /* stops.json */,
 				7927935D2F4528BD00477826 /* DubBus */,
 				7927935C2F4528BD00477826 /* Products */,
@@ -139,6 +145,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79ABA8082F47E47100046087 /* routes.json in Resources */,
+				79ABA8092F47E47100046087 /* trips.json in Resources */,
 				79482DD02F46A9B400397300 /* stops.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -158,8 +166,6 @@
 /* Begin XCBuildConfiguration section */
 		792793642F4528BF00477826 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReferenceAnchor = 7927935D2F4528BD00477826 /* DubBus */;
-			baseConfigurationReferenceRelativePath = Secrets.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -223,8 +229,6 @@
 		};
 		792793652F4528BF00477826 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReferenceAnchor = 7927935D2F4528BD00477826 /* DubBus */;
-			baseConfigurationReferenceRelativePath = Secrets.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -281,8 +285,6 @@
 		};
 		792793672F4528BF00477826 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReferenceAnchor = 7927935D2F4528BD00477826 /* DubBus */;
-			baseConfigurationReferenceRelativePath = Secrets.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -291,8 +293,7 @@
 				DEVELOPMENT_TEAM = 4C89SDQ75B;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app uses your location to show nearby buses.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app uses your location to show nearby buses.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "\"This app uses your location to show nearby buses.\"";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -318,8 +319,6 @@
 		};
 		792793682F4528BF00477826 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReferenceAnchor = 7927935D2F4528BD00477826 /* DubBus */;
-			baseConfigurationReferenceRelativePath = Secrets.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -328,8 +327,7 @@
 				DEVELOPMENT_TEAM = 4C89SDQ75B;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app uses your location to show nearby buses.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app uses your location to show nearby buses.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "\"This app uses your location to show nearby buses.\"";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

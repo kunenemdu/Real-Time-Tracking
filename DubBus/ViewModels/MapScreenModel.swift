@@ -24,6 +24,7 @@ final class MapScreenModel: NSObject, ObservableObject, CLLocationManagerDelegat
     }
     
     func checkLocationEnabled () {
+        print("checking location services")
         if CLLocationManager.locationServicesEnabled() {
             locationManager = CLLocationManager()
             
@@ -32,13 +33,21 @@ final class MapScreenModel: NSObject, ObservableObject, CLLocationManagerDelegat
         }
     }
     
-    private func checkLocationAuthorization () {
+    func checkLocationAuthorization () {
+        print("checking location authorization")
         //guard let locationManager = locationManager else { return }
+        
+        // If we already have a location or are already authorized,
+        // maybe we don't need to re-trigger the heavy setup.
+        guard locationManager.authorizationStatus != .authorizedWhenInUse else {
+            locationManager.startUpdatingLocation()
+            return
+        }
         
         switch locationManager.authorizationStatus {
         case .notDetermined:
-            locationManager.requestWhenInUseAuthorization()
             print("not determined")
+            locationManager.requestWhenInUseAuthorization()
         case .restricted:
             print("restricted")
         case .denied:

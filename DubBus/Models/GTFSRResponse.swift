@@ -38,4 +38,10 @@ struct Position: Codable {
     let latitude: Double?
     let longitude: Double?
     let bearing: Double?
+
+    enum CodingKeys: String, CodingKey {
+        case latitude = "lat"
+        case longitude = "lon"
+        case bearing = "bearing"
+    }
 }

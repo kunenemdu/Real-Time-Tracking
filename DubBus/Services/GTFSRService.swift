@@ -66,4 +66,12 @@ class GTFSRService {
             }.resume()
         }
     }
+    
+    //new fetch vehicles
+    func fetchVehiclePositions1() async throws -> [Vehicle] {
+        let url = URL(string: "https://api.nationaltransport.ie/gtfsr/v2/Vehicles?format=json")!
+        let (data, _) = try await URLSession.shared.data(from: url)
+        let result = try JSONDecoder().decode(GTFSRResponse.self, from: data)
+        return result.entity.compactMap { $0.vehicle }
+    }
 }

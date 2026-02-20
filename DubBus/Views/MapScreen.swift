@@ -14,6 +14,9 @@ struct MapScreen: View {
     @StateObject private var mapScreenModel = MapScreenModel()
     @State var searchInput = ""
     
+    //zoom in on user then load map
+    @State private var position: MapCameraPosition = .userLocation(fallback: .automatic)
+    
     let tallaghtCross = CLLocation(latitude: 53.2875, longitude: -6.3664)
     
     @Query var allStops: [BusStop]
@@ -26,7 +29,7 @@ struct MapScreen: View {
     
     //main map
     var body: some View {
-        Map (position: $mapScreenModel.position) {
+        Map (position: $position) {
             UserAnnotation()
             // 1. Display Bus Stops using Markers (Standard Look)
             ForEach(nearbyStops) { stop in
@@ -37,7 +40,6 @@ struct MapScreen: View {
                             .background(Color.yellow)
                             .clipShape(Circle())
                             .overlay(Circle().stroke(Color.black, lineWidth: 2))
-                        
                     }
                 }
             }
@@ -84,7 +86,6 @@ struct MapScreen: View {
         }
         .onAppear {
             viewModel.startLiveUpdates()
-            mapScreenModel.checkLocationEnabled()
         }
         
         //bottom sheet

@@ -12,10 +12,16 @@ import MapKit
 class BusViewModel: ObservableObject {
     
     @Published var buses: [Bus] = []
+    @Published var liveBuses: [Bus] = []
+    @Published var allStops: [BusStop] = []
     var foundStops: [BusStop] = []
     private var timer: Timer?
     
     private let service = GTFSRService()
+    
+    // This is where you store your static JSON data
+    var allTrips: [Trip] = []
+    var allStops_new: [BusStop] = []
     
     func loadBuses() {
         service.fetchVehiclePositions { [weak self] buses in
@@ -53,5 +59,4 @@ class BusViewModel: ObservableObject {
             String(stop.stopCode).contains(query)
         }
     }
-          
 }
